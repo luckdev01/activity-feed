@@ -10,7 +10,7 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
-import { IActivity } from '../../types/activity';
+import { IPost } from '../../redux/modules/posts/types';
 
 const StyledCard = styled(Card)(() => ({
   maxWidth: '100%',
@@ -19,7 +19,7 @@ const StyledCard = styled(Card)(() => ({
 }));
 
 type Props = {
-  data: IActivity;
+  data: IPost;
 };
 
 export default function ActivityFeedCard({ data }: Props) {

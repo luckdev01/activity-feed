@@ -1,6 +1,6 @@
-import { IActivity } from '../types/activity';
+import { IPost } from '../redux/modules/posts/types';
 
-export const activities: IActivity[] = [
+export const activities: IPost[] = [
   {
     username: 'JohnDoe',
     profileImage: 'https://xsgames.co/randomusers/assets/avatars/male/0.jpg',
