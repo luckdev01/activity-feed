@@ -5,7 +5,7 @@ import {
   put,
   takeEvery,
 } from 'redux-saga/effects';
-import { IAction } from '../../store/types';
+import { IAction } from '@/redux/store/types';
 import { PostAPI } from '../../../services/post.service';
 import {
   FETCH_POSTS,

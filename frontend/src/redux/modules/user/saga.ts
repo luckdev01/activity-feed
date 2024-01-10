@@ -6,7 +6,7 @@ import {
   put,
   takeEvery,
 } from 'redux-saga/effects';
-import { IAction } from '../../store/types';
+import { IAction } from '@/redux/store/types';
 import { UserAPI } from '../../../services/user.service';
 import { LOGIN_USER, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS } from './actions';
 import { ILoginData } from './types';

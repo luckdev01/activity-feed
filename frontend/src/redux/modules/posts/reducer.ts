@@ -1,4 +1,4 @@
-import { IAction } from '../../store/types';
+import { IAction } from '@/redux/store/types';
 import {
   FETCH_POSTS,
   FETCH_POSTS_FAILURE,

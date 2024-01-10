@@ -1,4 +1,4 @@
-import { IAction } from '../../store/types';
+import { IAction } from '@/redux/store/types';
 import {
   LOGIN_USER,
   LOGIN_USER_FAILURE,

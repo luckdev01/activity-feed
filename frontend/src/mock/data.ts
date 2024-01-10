@@ -1,4 +1,4 @@
-import { IPost } from '../redux/modules/posts/types';
+import { IPost } from '@/redux/modules/posts/types';
 
 export const activities: IPost[] = [
   {

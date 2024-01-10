@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { AppState } from '../../store/types';
+import { AppState } from '@/redux/store/types';
 
 export const selectUserState = (state: AppState) => state.user;
 

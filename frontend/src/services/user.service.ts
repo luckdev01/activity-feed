@@ -1,4 +1,4 @@
-import { ILoginData } from '../redux/modules/user/types';
+import { ILoginData } from '@/redux/modules/user/types';
 import { axg, axp } from './axios-config';
 
 export const UserAPI = {

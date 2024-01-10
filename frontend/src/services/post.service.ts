@@ -1,4 +1,4 @@
-import { PaginationParams } from '../types/common';
+import { PaginationParams } from '@/types/common';
 import { axg, axp, axd, axu } from './axios-config';
 
 export const PostAPI = {
