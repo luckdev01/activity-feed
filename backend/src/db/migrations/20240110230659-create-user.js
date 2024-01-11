@@ -26,6 +26,14 @@ module.exports = {
       profileImage: {
         type: Sequelize.STRING,
       },
+      hash: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      salt: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
