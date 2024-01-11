@@ -4,23 +4,35 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { ILoginData } from '@/redux/modules/user/types';
 
-export default function Login() {
-  const { handleSubmit, handleChange, handleBlur, values, touched, errors } =
-    useFormik({
-      initialValues: {
-        username: '',
-        password: '',
-      },
-      validationSchema: Yup.object({
-        username: Yup.string().required('Username is required'),
-        password: Yup.string().required('Password is required'),
-      }),
-      onSubmit: (values) => {
-        // Login logic here
-        console.log('Login values:', values);
-      },
-    });
+type Props = {
+  handleLogin: (values: ILoginData) => void;
+  loading: boolean;
+};
+
+export default function LoginForm({ handleLogin, loading }: Props) {
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    values,
+    touched,
+    errors,
+    isValid,
+  } = useFormik<ILoginData>({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().required('Username is required'),
+      password: Yup.string().required('Password is required'),
+    }),
+    onSubmit: values => {
+      handleLogin(values);
+    },
+  });
 
   return (
     <Box sx={{ pt: 12, maxWidth: 500, margin: 'auto' }}>
@@ -61,8 +73,9 @@ export default function Login() {
           variant="contained"
           color="primary"
           sx={{ mt: 3, height: 50 }}
+          disabled={loading || !isValid}
         >
-          Sign In
+          Sign In{loading && '...'}
         </Button>
       </form>
     </Box>

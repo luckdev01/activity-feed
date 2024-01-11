@@ -3,9 +3,9 @@ import { axg, axp } from './axios-config';
 
 export const UserAPI = {
   login: async function (data: ILoginData) {
-    await axp(`/auth/login`, data);
+    return axp(`/auth/login`, data);
   },
-  getProfile: async function (id: number) {
-    return axg(`/user/${id}`);
+  getProfile: async function () {
+    return axg('/auth/user');
   },
 };

@@ -19,7 +19,7 @@ function* loginUser(
     const resp = yield call(UserAPI.login, action.payload);
     yield put({
       type: LOGIN_USER_SUCCESS,
-      payload: { data: resp.data },
+      payload: resp,
     });
   } catch (error: any) {
     yield put({

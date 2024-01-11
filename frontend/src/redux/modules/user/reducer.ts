@@ -8,7 +8,7 @@ import {
 
 const DEFAULT = {
   isLoading: false,
-  token: null,
+  isAuthenticated: false,
   user: null,
   error: null,
 };
@@ -28,21 +28,21 @@ export function userReducer(state = DEFAULT, action: IAction) {
       return {
         ...state,
         isLoading: false,
-        token: payload.data,
+        isAuthenticated: payload.success,
       };
     }
     case LOGIN_USER_FAILURE: {
       return {
         ...state,
         isLoading: false,
-        token: null,
+        isAuthenticated: false,
         error: payload.error,
       };
     }
     case LOGOUT_USER: {
       return {
         ...state,
-        token: null,
+        isAuthenticated: false,
         user: null,
       };
     }
