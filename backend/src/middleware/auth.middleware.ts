@@ -33,7 +33,7 @@ export function initPassport(app: Express) {
     ),
   );
 
-  passport.serializeUser((user: any, done: any) => {
+  passport.serializeUser((user: any, done) => {
     done(null, user.id);
   });
 
