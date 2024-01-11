@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 async function generateSaltAndHash(password) {
   const saltRounds = 10; // You can adjust the number of salt rounds as needed
@@ -13,4 +14,8 @@ async function generateSaltAndHash(password) {
   }
 }
 
-module.exports = { generateSaltAndHash };
+function generateSecretKey(bytes) {
+  return crypto.randomBytes(bytes).toString('hex');
+}
+
+module.exports = { generateSaltAndHash, generateSecretKey };

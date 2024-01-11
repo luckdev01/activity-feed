@@ -1,30 +1,44 @@
-import express, { Application } from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
 import dotenv from 'dotenv';
-import mainRouter from './routes/main.router';
-
 dotenv.config();
 
-const db = require('./models');
+import express, { Express } from 'express';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import mainRouter from './routes/main.router';
+import authRouter from './routes/auth.router';
+import { initPassport } from './middleware/auth.middleware';
+import { generateSecretKey } from './utils/helper';
 
-const app: Application = express();
+// const db = require('./models');
+
+const app: Express = express();
 
 const port: number = parseInt(process.env.PORT || '8000');
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/', mainRouter);
+app.use(
+  session({
+    secret: generateSecretKey(32),
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+initPassport(app);
 
-db.sequelize
-  .sync({ force: true })
-  .then(() => {
-    console.log('Synced db.');
-  })
-  .catch((err: any) => {
-    console.log('Failed to sync db: ' + err.message);
-  });
+app.use('/', mainRouter);
+app.use('/auth', authRouter);
+
+// db.sequelize
+//   .sync({ force: true })
+//   .then(() => {
+//     console.log('Synced db.');
+//   })
+//   .catch((err: any) => {
+//     console.log('Failed to sync db: ' + err.message);
+//   });
 
 app.listen(port, function () {
   console.log(`App is listening on port ${port} !`);
