@@ -3,14 +3,14 @@ export type IUser = {
   firstName: string;
   lastName: string;
   username: string;
-  email: string;
-  phone?: Date;
+  email?: string;
+  profileImage: string;
 };
 
 export type UserState = {
   isLoading: boolean;
   user: IUser;
-  token: string;
+  isAuthenticated: boolean;
   error: any;
 };
 

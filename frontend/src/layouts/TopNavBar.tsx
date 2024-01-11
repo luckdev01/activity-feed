@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -13,10 +15,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { userActionCreators } from '../redux/modules/user/actions';
+import { selectIsAuthenticated } from '../redux/modules/user/selectors';
 
 export default function TopNavBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,6 +38,11 @@ export default function TopNavBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = useCallback(() => {
+    handleClose();
+    dispatch(userActionCreators.logoutUser());
+  }, [dispatch]);
 
   return (
     <AppBar position="fixed" color="inherit">
@@ -76,7 +94,7 @@ export default function TopNavBar() {
               </ListItemIcon>
               <ListItemText>Settings</ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <LogoutIcon fontSize="small" />
               </ListItemIcon>

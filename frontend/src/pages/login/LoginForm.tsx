@@ -49,6 +49,7 @@ export default function LoginForm({ handleLogin, loading }: Props) {
           variant="outlined"
           onChange={handleChange}
           onBlur={handleBlur}
+          autoComplete="username"
           value={values.username}
           error={touched.username && Boolean(errors.username)}
           helperText={touched.username && errors.username}
@@ -63,6 +64,7 @@ export default function LoginForm({ handleLogin, loading }: Props) {
           variant="outlined"
           onChange={handleChange}
           onBlur={handleBlur}
+          autoComplete="current-password"
           value={values.password}
           error={touched.password && Boolean(errors.password)}
           helperText={touched.password && errors.password}
