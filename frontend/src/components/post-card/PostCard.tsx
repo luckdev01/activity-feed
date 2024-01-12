@@ -22,7 +22,7 @@ type Props = {
   data: IPost;
 };
 
-export default function ActivityFeedCard({ data }: Props) {
+export default function PostCard({ data }: Props) {
   return (
     <StyledCard>
       <CardHeader

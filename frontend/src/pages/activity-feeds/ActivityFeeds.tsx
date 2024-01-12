@@ -5,7 +5,8 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postActionCreators } from '../../redux/modules/posts/actions';
 import { selectPosts } from '../../redux/modules/posts/selectors';
-import ActivityFeedCard from '../../components/activity-feed-card';
+import PostCard from '../../components/post-card';
+import FeedsToolbar from '../../components/feeds-toolbar';
 
 export const rowsPerTime = 4;
 
@@ -30,14 +31,19 @@ export default function ActivityFeeds() {
     dispatch(postActionCreators.fetchPosts({ limit: rowsPerTime, more: true }));
   }, [dispatch]);
 
+  const handleSearch = useCallback((keyword: string) => {
+    console.log('search keyword=', keyword);
+  }, []);
+
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+      <FeedsToolbar onSearch={handleSearch} />
       <StyledBox>
         {posts.map(post => (
-          <ActivityFeedCard key={post.id} data={post} />
+          <PostCard key={post.id} data={post} />
         ))}
       </StyledBox>
-      <Button variant="text" sx={{ mt: 2 }} onClick={handleLoadMore}>
+      <Button variant="text" onClick={handleLoadMore}>
         Load More
       </Button>
     </Box>
