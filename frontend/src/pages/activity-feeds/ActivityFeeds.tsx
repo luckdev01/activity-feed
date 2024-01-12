@@ -51,9 +51,17 @@ export default function ActivityFeeds() {
     [dispatch],
   );
 
-  const handlePost = useCallback((data: IPostDTO) => {
-    dispatch(postActionCreators.createPost({ data }));
-  }, []);
+  const handlePost = useCallback(
+    (data: IPostDTO) => {
+      dispatch(postActionCreators.createPost({ data }));
+    },
+    [dispatch],
+  );
+
+  const handleAfterPost = useCallback(() => {
+    setQuery('');
+    dispatch(postActionCreators.fetchPosts({ limit: rowsPerTime }));
+  }, [dispatch]);
 
   return (
     <>
@@ -73,6 +81,7 @@ export default function ActivityFeeds() {
         loading={isSaving}
         onClose={() => setOpen(false)}
         handlePost={handlePost}
+        onPost={handleAfterPost}
       />
     </>
   );

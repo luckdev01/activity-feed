@@ -14,6 +14,7 @@ type Props = {
   loading: boolean;
   onClose: () => void;
   handlePost: (data: IPostDTO) => void;
+  onPost: () => void;
 };
 
 export default function CreatePostDialog({
@@ -21,6 +22,7 @@ export default function CreatePostDialog({
   loading,
   onClose,
   handlePost,
+  onPost,
 }: Props) {
   const {
     handleSubmit,
@@ -51,6 +53,7 @@ export default function CreatePostDialog({
   useEffect(() => {
     if (!loading) {
       handleClose();
+      onPost();
     }
   }, [loading]);
 
