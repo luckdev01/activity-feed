@@ -1,4 +1,4 @@
-import { IFetchPostParams } from '@/redux/modules/posts/types';
+import { IFetchPostAPIParams } from '@/redux/modules/posts/types';
 import { axg, axp, axd, axu } from './axios-config';
 
 export const PostAPI = {
@@ -7,7 +7,7 @@ export const PostAPI = {
   },
   getAll: async function (
     query: object,
-    params?: IFetchPostParams | undefined,
+    params?: IFetchPostAPIParams | undefined,
   ) {
     return axg('/posts', { ...query, ...params });
   },

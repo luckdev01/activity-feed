@@ -7,3 +7,7 @@ export const selectPostState = (state: AppState) => state.post;
 export const selectPosts = createSelector(selectPostState, postState =>
   postsAdapter.getSelectors().selectAll(postState),
 );
+
+export const selectPostsCount = createSelector(selectPostState, postState =>
+  postsAdapter.getSelectors().selectTotal(postState),
+);

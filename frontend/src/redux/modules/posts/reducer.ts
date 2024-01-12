@@ -41,7 +41,9 @@ export function postReducer(state = DEFAULT, action: IAction): PostState {
     }
     case FETCH_POSTS_SUCCESS: {
       return {
-        ...postsAdapter.setAll(state, payload.data),
+        ...(payload.more
+          ? postsAdapter.setMany(state, payload.data)
+          : postsAdapter.setAll(state, payload.data)),
         isLoading: false,
       };
     }

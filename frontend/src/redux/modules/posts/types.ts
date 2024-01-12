@@ -9,9 +9,14 @@ export type IPost = {
   timeStamp: string;
 };
 
-export type IFetchPostParams = {
+export type IFetchPostAPIParams = {
   offset: number;
   limit: number;
+};
+
+export type IFetchPostParams = {
+  limit: number;
+  more?: boolean;
 };
 
 export type IPostDTO = {

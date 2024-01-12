@@ -1,8 +1,11 @@
 import {
   CallEffect,
   PutEffect,
+  SelectEffectDescriptor,
+  SimpleEffect,
   call,
   put,
+  select,
   takeEvery,
 } from 'redux-saga/effects';
 import { IAction } from '@/redux/store/types';
@@ -23,16 +26,29 @@ import {
   DELETE_POST_SUCCESS,
 } from './actions';
 import { IFetchPostParams } from './types';
+import { selectPostsCount } from './selectors';
 
 // Worker saga will be fired on FETCH_POSTS actions
 function* fetchPosts(
   action: PayloadAction<IFetchPostParams>,
-): Generator<PutEffect<IAction> | CallEffect<any>, void, any> {
+): Generator<
+  | PutEffect<IAction>
+  | CallEffect<any>
+  | SimpleEffect<'SELECT', SelectEffectDescriptor>,
+  void,
+  any
+> {
   try {
-    const resp = yield call(PostAPI.getAll, {}, action.payload);
+    const { more, limit } = action.payload;
+    const count = yield select(selectPostsCount);
+    const resp = yield call(
+      PostAPI.getAll,
+      {},
+      more ? { offset: count, limit } : { offset: 0, limit },
+    );
     yield put({
       type: FETCH_POSTS_SUCCESS,
-      payload: { data: resp },
+      payload: { data: resp, more },
     });
   } catch (error: any) {
     yield put({
