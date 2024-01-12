@@ -63,7 +63,7 @@ export default function ActivityFeeds() {
         open={open}
         loading={isSaving}
         onClose={() => setOpen(false)}
-        onSubmit={handlePost}
+        handlePost={handlePost}
       />
     </>
   );
