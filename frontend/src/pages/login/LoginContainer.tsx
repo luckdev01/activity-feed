@@ -5,13 +5,13 @@ import { ILoginData } from '@/redux/modules/user/types';
 import { userActionCreators } from '../../redux/modules/user/actions';
 import {
   selectIsAuthenticated,
-  selectIsLoading,
+  selectLogin,
 } from '../../redux/modules/user/selectors';
 import LoginForm from './LoginForm';
 
 export default function LoginContainer() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+  const { isLoading } = useSelector(selectLogin);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
 

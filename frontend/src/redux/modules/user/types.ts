@@ -8,10 +8,16 @@ export type IUser = {
 };
 
 export type UserState = {
-  isLoading: boolean;
-  user: IUser;
   isAuthenticated: boolean;
-  error: any;
+  login: {
+    isLoading: boolean;
+    error?: any;
+  };
+  user: {
+    isLoading: boolean;
+    data: IUser | null;
+    error?: unknown;
+  };
 };
 
 export type ILoginData = {

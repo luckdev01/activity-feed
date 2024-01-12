@@ -9,10 +9,10 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  (error) => {
+  error => {
     if (error.response?.status === 401) {
       // logout
     }

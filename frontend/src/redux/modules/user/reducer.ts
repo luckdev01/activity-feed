@@ -1,49 +1,98 @@
 import { IAction } from '@/redux/store/types';
 import {
+  FETCH_USER,
+  FETCH_USER_FAILURE,
+  FETCH_USER_SUCCESS,
   LOGIN_USER,
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER,
 } from './actions';
+import { UserState } from './types';
 
-const DEFAULT = {
-  isLoading: false,
+const DEFAULT: UserState = {
   isAuthenticated: false,
-  user: null,
-  error: null,
+  login: {
+    isLoading: false,
+    error: null,
+  },
+  user: {
+    isLoading: false,
+    data: null,
+    error: null,
+  },
 };
 
-export function userReducer(state = DEFAULT, action: IAction) {
+export function userReducer(state = DEFAULT, action: IAction): UserState {
   const { type, payload } = action;
 
   switch (type) {
     case LOGIN_USER: {
       return {
         ...state,
-        isLoading: true,
-        error: null,
+        login: {
+          isLoading: true,
+          error: null,
+        },
       };
     }
     case LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        isLoading: false,
+        login: {
+          isLoading: false,
+        },
         isAuthenticated: payload.success,
       };
     }
     case LOGIN_USER_FAILURE: {
       return {
         ...state,
-        isLoading: false,
+        login: {
+          isLoading: false,
+          error: payload.error,
+        },
         isAuthenticated: false,
-        error: payload.error,
       };
     }
     case LOGOUT_USER: {
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: {
+          ...state.user,
+          data: null,
+        },
+      };
+    }
+    case FETCH_USER: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isLoading: true,
+          error: null,
+        },
+      };
+    }
+    case FETCH_USER_SUCCESS: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          isLoading: false,
+          data: payload.user,
+        },
+      };
+    }
+    case FETCH_USER_FAILURE: {
+      return {
+        ...state,
+        user: {
+          isLoading: false,
+          data: null,
+          error: payload.error,
+        },
       };
     }
     default: {
