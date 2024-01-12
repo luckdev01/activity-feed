@@ -39,12 +39,11 @@ function* fetchPosts(
   any
 > {
   try {
-    const { more, limit } = action.payload;
+    const { more, limit, query } = action.payload;
     const count = yield select(selectPostsCount);
     const resp = yield call(
       PostAPI.getAll,
-      {},
-      more ? { offset: count, limit } : { offset: 0, limit },
+      more ? { offset: count, limit, query } : { offset: 0, limit, query },
     );
     yield put({
       type: FETCH_POSTS_SUCCESS,

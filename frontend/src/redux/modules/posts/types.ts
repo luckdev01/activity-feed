@@ -12,10 +12,12 @@ export type IPost = {
 export type IFetchPostAPIParams = {
   offset: number;
   limit: number;
+  query?: string;
 };
 
 export type IFetchPostParams = {
   limit: number;
+  query?: string;
   more?: boolean;
 };
 

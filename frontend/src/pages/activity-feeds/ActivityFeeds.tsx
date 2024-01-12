@@ -26,6 +26,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 export default function ActivityFeeds() {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
   const posts = useSelector(selectPosts);
   const isSaving = useSelector(selectIsSaving);
   const dispatch = useDispatch();
@@ -35,12 +36,20 @@ export default function ActivityFeeds() {
   }, []);
 
   const handleLoadMore = useCallback(() => {
-    dispatch(postActionCreators.fetchPosts({ limit: rowsPerTime, more: true }));
-  }, [dispatch]);
+    dispatch(
+      postActionCreators.fetchPosts({ limit: rowsPerTime, query, more: true }),
+    );
+  }, [dispatch, query]);
 
-  const handleSearch = useCallback((keyword: string) => {
-    console.log('search keyword=', keyword);
-  }, []);
+  const handleSearch = useCallback(
+    (keyword: string) => {
+      setQuery(keyword);
+      dispatch(
+        postActionCreators.fetchPosts({ limit: rowsPerTime, query: keyword }),
+      );
+    },
+    [dispatch],
+  );
 
   const handlePost = useCallback((data: IPostDTO) => {
     dispatch(postActionCreators.createPost({ data }));

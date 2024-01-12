@@ -5,11 +5,8 @@ export const PostAPI = {
   get: async function (id: number) {
     return axg(`/posts/${id}`);
   },
-  getAll: async function (
-    query: object,
-    params?: IFetchPostAPIParams | undefined,
-  ) {
-    return axg('/posts', { ...query, ...params });
+  getAll: async function (params?: IFetchPostAPIParams | undefined) {
+    return axg('/posts', { ...params });
   },
   create: async function (data: any) {
     await axp(`/posts`, data);
