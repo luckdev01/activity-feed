@@ -21,7 +21,7 @@ initPassport(app);
 
 app.use('/', mainRouter);
 app.use('/auth', authRouter);
-app.use('/post', postRouter);
+app.use('/posts', postRouter);
 
 // db.sequelize
 //   .sync({ force: true })

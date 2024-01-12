@@ -6,6 +6,7 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 import { IAction } from '@/redux/store/types';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { PostAPI } from '../../../services/post.service';
 import {
   FETCH_POSTS,
@@ -21,16 +22,17 @@ import {
   DELETE_POST_FAILURE,
   DELETE_POST_SUCCESS,
 } from './actions';
+import { IFetchPostParams } from './types';
 
 // Worker saga will be fired on FETCH_POSTS actions
 function* fetchPosts(
-  action: IAction,
+  action: PayloadAction<IFetchPostParams>,
 ): Generator<PutEffect<IAction> | CallEffect<any>, void, any> {
   try {
-    const resp = yield call(PostAPI.getAll, {});
+    const resp = yield call(PostAPI.getAll, {}, action.payload);
     yield put({
       type: FETCH_POSTS_SUCCESS,
-      payload: { data: resp.data },
+      payload: { data: resp },
     });
   } catch (error: any) {
     yield put({

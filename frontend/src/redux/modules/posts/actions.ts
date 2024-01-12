@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IPostDTO } from './types';
+import { IFetchPostParams, IPostDTO } from './types';
 
 export const FETCH_POSTS = 'posts/fetch';
 export const FETCH_POSTS_SUCCESS = 'posts/fetchSuccess';
@@ -15,7 +15,7 @@ export const DELETE_POST_SUCCESS = 'posts/deleteSuccess';
 export const DELETE_POST_FAILURE = 'posts/deleteFailure';
 
 export const postActionCreators = {
-  fetchPosts: createAction(FETCH_POSTS),
+  fetchPosts: createAction<IFetchPostParams>(FETCH_POSTS),
   createPost: createAction<{ data: IPostDTO }>(CREATE_POST),
   updatePost: createAction<{ id: number; data: IPostDTO }>(UPDATE_POST),
   deletePost: createAction<{ id: number }>(DELETE_POST),

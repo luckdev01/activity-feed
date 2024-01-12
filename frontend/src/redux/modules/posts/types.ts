@@ -1,9 +1,17 @@
+import { EntityState } from '@reduxjs/toolkit';
+import { IUser } from '../user/types';
+
 export type IPost = {
-  username: string;
-  profileImage: string;
+  id: number;
+  user: IUser;
   postContent: string;
   likeCount: number;
   timeStamp: string;
+};
+
+export type IFetchPostParams = {
+  offset: number;
+  limit: number;
 };
 
 export type IPostDTO = {
@@ -13,8 +21,8 @@ export type IPostDTO = {
   eventTime: string;
 };
 
-export type PostState = {
+export type PostState = EntityState<IPost, number> & {
   isLoading: boolean;
-  posts: IPost[];
+  isSaving: boolean;
   error: any;
 };

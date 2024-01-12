@@ -1,7 +1,10 @@
 import Box from '@mui/material/Box';
-import ActivityFeedCard from '../../components/activity-feed-card';
 import { styled } from '@mui/material/styles';
-import { activities } from '../../mock/data';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postActionCreators } from '../../redux/modules/posts/actions';
+import { selectPosts } from '../../redux/modules/posts/selectors';
+import ActivityFeedCard from '../../components/activity-feed-card';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
@@ -13,13 +16,17 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function ActivityFeeds() {
+  const posts = useSelector(selectPosts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActionCreators.fetchPosts({ offset: 0, limit: 4 }));
+  }, [dispatch]);
+
   return (
     <StyledBox>
-      {activities.map((activity) => (
-        <ActivityFeedCard
-          key={`${activity.username}-${activity.timeStamp}`}
-          data={activity}
-        />
+      {posts.map(post => (
+        <ActivityFeedCard key={post.id} data={post} />
       ))}
     </StyledBox>
   );

@@ -1,3 +1,4 @@
+import { createEntityAdapter } from '@reduxjs/toolkit';
 import { IAction } from '@/redux/store/types';
 import {
   FETCH_POSTS,
@@ -13,16 +14,21 @@ import {
   DELETE_POST_FAILURE,
   DELETE_POST_SUCCESS,
 } from './actions';
-import { IPost } from './types';
+import { IPost, PostState } from './types';
 
-const DEFAULT = {
+export const postsAdapter = createEntityAdapter<IPost, number>({
+  selectId: post => post.id,
+  sortComparer: (a, b) =>
+    Date.parse(a.timeStamp) > Date.parse(b.timeStamp) ? -1 : 1,
+});
+
+const DEFAULT: PostState = postsAdapter.getInitialState({
   isLoading: false,
   isSaving: false,
-  posts: [],
   error: null,
-};
+});
 
-export function postReducer(state = DEFAULT, action: IAction) {
+export function postReducer(state = DEFAULT, action: IAction): PostState {
   const { type, payload } = action;
 
   switch (type) {
@@ -35,16 +41,14 @@ export function postReducer(state = DEFAULT, action: IAction) {
     }
     case FETCH_POSTS_SUCCESS: {
       return {
-        ...state,
+        ...postsAdapter.setAll(state, payload.data),
         isLoading: false,
-        posts: payload.data,
       };
     }
     case FETCH_POSTS_FAILURE: {
       return {
-        ...state,
+        ...postsAdapter.removeAll(state),
         isLoading: false,
-        posts: [] as IPost[],
         error: payload.error,
       };
     }

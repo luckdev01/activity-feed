@@ -30,7 +30,7 @@ export default function ActivityFeedCard({ data }: Props) {
           <Avatar sx={{ bgcolor: red[500] }} aria-label="profile">
             <img
               style={{ width: 48 }}
-              src={data.profileImage}
+              src={data.user.profileImage}
               alt="profile-logo"
             />
           </Avatar>
@@ -40,7 +40,7 @@ export default function ActivityFeedCard({ data }: Props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={data.username}
+        title={data.user.username}
         subheader={format(new Date(data.timeStamp), 'hh:mm a, MMM dd')}
       />
       <CardContent>
