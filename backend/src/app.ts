@@ -6,8 +6,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mainRouter from './routes/main.router';
 import authRouter from './routes/auth.router';
+import postRouter from './routes/post.router';
 import { initPassport } from './middleware/auth.middleware';
-import { generateSecretKey } from './utils/helper';
 
 // const db = require('./models');
 
@@ -21,6 +21,7 @@ initPassport(app);
 
 app.use('/', mainRouter);
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
 
 // db.sequelize
 //   .sync({ force: true })
