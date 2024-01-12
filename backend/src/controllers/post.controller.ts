@@ -30,7 +30,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
 
 async function create(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await Post.create(req.body));
+    res.json(await Post.create({ ...req.body, userId: (req.user as any).id }));
   } catch (err: any) {
     console.error('Error while creating post', err.message);
     next(err);

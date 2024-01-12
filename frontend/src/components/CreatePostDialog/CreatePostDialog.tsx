@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,12 +9,24 @@ import { IPostDTO } from '@/redux/modules/posts/types';
 
 type Props = {
   open: boolean;
+  loading: boolean;
   onClose: () => void;
   onSubmit: (data: IPostDTO) => void;
 };
 
-export default function CreatePostDialog({ open, onClose, onSubmit }: Props) {
+export default function CreatePostDialog({
+  open,
+  loading,
+  onClose,
+  onSubmit,
+}: Props) {
   const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (!loading) {
+      onClose();
+    }
+  }, [loading]);
 
   const handleOk = () => {
     onSubmit({
@@ -46,8 +58,8 @@ export default function CreatePostDialog({ open, onClose, onSubmit }: Props) {
         <Button autoFocus color="inherit" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained" onClick={handleOk}>
-          Post
+        <Button variant="contained" onClick={handleOk} disabled={loading}>
+          Post{loading && '...'}
         </Button>
       </DialogActions>
     </Dialog>

@@ -11,3 +11,8 @@ export const selectPosts = createSelector(selectPostState, postState =>
 export const selectPostsCount = createSelector(selectPostState, postState =>
   postsAdapter.getSelectors().selectTotal(postState),
 );
+
+export const selectIsSaving = createSelector(
+  selectPostState,
+  postState => postState.isSaving,
+);

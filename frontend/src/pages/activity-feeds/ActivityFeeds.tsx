@@ -5,7 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPostDTO } from '@/redux/modules/posts/types';
 import { postActionCreators } from '../../redux/modules/posts/actions';
-import { selectPosts } from '../../redux/modules/posts/selectors';
+import {
+  selectIsSaving,
+  selectPosts,
+} from '../../redux/modules/posts/selectors';
 import PostCard from '../../components/PostCard';
 import FeedsToolbar from '../../components/FeedsToolbar';
 import CreatePostDialog from '../../components/CreatePostDialog';
@@ -24,6 +27,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 export default function ActivityFeeds() {
   const [open, setOpen] = useState(false);
   const posts = useSelector(selectPosts);
+  const isSaving = useSelector(selectIsSaving);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +43,7 @@ export default function ActivityFeeds() {
   }, []);
 
   const handlePost = useCallback((data: IPostDTO) => {
-    console.log('Create post, data=', data);
+    dispatch(postActionCreators.createPost({ data }));
   }, []);
 
   return (
@@ -57,6 +61,7 @@ export default function ActivityFeeds() {
       </Box>
       <CreatePostDialog
         open={open}
+        loading={isSaving}
         onClose={() => setOpen(false)}
         onSubmit={handlePost}
       />
