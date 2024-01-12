@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
+import { Op } from 'sequelize';
 const { User, Post } = require('../models');
 
 async function get(req: Request, res: Response, next: NextFunction) {
   try {
-    const { offset, limit } = req.query;
+    const { offset, limit, query } = req.query;
     const offsetNumber =
       offset && typeof offset === 'string' ? parseInt(offset) : 0;
     const limitNumber =
@@ -14,6 +15,14 @@ async function get(req: Request, res: Response, next: NextFunction) {
         {
           model: User,
           as: 'user',
+          attributes: ['username', 'firstName', 'lastName', 'profileImage'],
+          where: query
+            ? {
+                username: {
+                  [Op.iLike]: `%${query}%`,
+                },
+              }
+            : {},
         },
       ],
       order: [['timeStamp', 'DESC']],
