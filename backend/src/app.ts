@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Express } from 'express';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mainRouter from './routes/main.router';
@@ -18,14 +17,6 @@ const port: number = parseInt(process.env.PORT || '8000');
 
 app.use(bodyParser.json());
 app.use(cors());
-
-app.use(
-  session({
-    secret: generateSecretKey(32),
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
 initPassport(app);
 
 app.use('/', mainRouter);
