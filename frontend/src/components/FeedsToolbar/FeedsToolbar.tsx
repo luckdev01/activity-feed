@@ -50,10 +50,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 type Props = {
+  onAdd: () => void;
   onSearch: (keyword: string) => void;
 };
 
-export default function FeedsToolbar({ onSearch }: Props) {
+export default function FeedsToolbar({ onAdd, onSearch }: Props) {
   const [keyword, setKeyword] = useState('');
 
   const handleSearch = useCallback(() => {
@@ -68,6 +69,7 @@ export default function FeedsToolbar({ onSearch }: Props) {
         color="inherit"
         aria-label="open drawer"
         sx={{ mr: 2 }}
+        onClick={onAdd}
       >
         <AddIcon color="primary" />
       </IconButton>

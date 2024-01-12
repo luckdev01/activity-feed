@@ -20,10 +20,7 @@ export type IFetchPostParams = {
 };
 
 export type IPostDTO = {
-  name: string;
-  type: string;
-  userId: string;
-  eventTime: string;
+  postContent: string;
 };
 
 export type PostState = EntityState<IPost, number> & {
