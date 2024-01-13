@@ -4,6 +4,7 @@ import { IUser } from '../user/types';
 export type IPost = {
   id: number;
   user: IUser;
+  userId: number;
   postContent: string;
   likeCount: number;
   timeStamp: string;
@@ -16,6 +17,7 @@ export type IFetchPostAPIParams = {
 };
 
 export type IFetchPostParams = {
+  offset?: number;
   limit: number;
   query?: string;
   more?: boolean;
@@ -29,4 +31,5 @@ export type PostState = EntityState<IPost, number> & {
   isLoading: boolean;
   isSaving: boolean;
   error: any;
+  newFeeds: number[];
 };

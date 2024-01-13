@@ -12,6 +12,7 @@ import {
 import PostCard from '../../components/PostCard';
 import FeedsToolbar from '../../components/FeedsToolbar';
 import CreatePostDialog from '../../components/CreatePostDialog';
+import NewFeedsNotification from '../../components/NewFeedsNotification';
 
 export const rowsPerTime = 4;
 
@@ -67,6 +68,7 @@ export default function ActivityFeeds() {
     <>
       <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
         <FeedsToolbar onAdd={() => setOpen(true)} onSearch={handleSearch} />
+        <NewFeedsNotification />
         <StyledBox>
           {posts.map(post => (
             <PostCard key={post.id} data={post} />

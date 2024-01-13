@@ -13,10 +13,14 @@ export const UPDATE_POST_FAILURE = 'posts/updateFailure';
 export const DELETE_POST = 'posts/delete';
 export const DELETE_POST_SUCCESS = 'posts/deleteSuccess';
 export const DELETE_POST_FAILURE = 'posts/deleteFailure';
+export const ADD_NEW_FEED = 'posts/addNewFeed';
+export const CLEAR_NEW_FEEDS = 'posts/clearNewFeeds';
 
 export const postActionCreators = {
   fetchPosts: createAction<IFetchPostParams>(FETCH_POSTS),
   createPost: createAction<{ data: IPostDTO }>(CREATE_POST),
   updatePost: createAction<{ id: number; data: IPostDTO }>(UPDATE_POST),
   deletePost: createAction<{ id: number }>(DELETE_POST),
+  addNewFeed: createAction<number>(ADD_NEW_FEED),
+  clearNewFeeds: createAction(CLEAR_NEW_FEEDS),
 };

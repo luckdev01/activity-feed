@@ -16,3 +16,8 @@ export const selectIsSaving = createSelector(
   selectPostState,
   postState => postState.isSaving,
 );
+
+export const selectNewFeeds = createSelector(
+  selectPostState,
+  postState => postState.newFeeds,
+);

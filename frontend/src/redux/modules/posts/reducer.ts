@@ -13,6 +13,8 @@ import {
   DELETE_POST,
   DELETE_POST_FAILURE,
   DELETE_POST_SUCCESS,
+  ADD_NEW_FEED,
+  CLEAR_NEW_FEEDS,
 } from './actions';
 import { IPost, PostState } from './types';
 
@@ -26,6 +28,7 @@ const DEFAULT: PostState = postsAdapter.getInitialState({
   isLoading: false,
   isSaving: false,
   error: null,
+  newFeeds: [],
 });
 
 export function postReducer(state = DEFAULT, action: IAction): PostState {
@@ -80,7 +83,21 @@ export function postReducer(state = DEFAULT, action: IAction): PostState {
         error: payload.error,
       };
     }
-
+    case ADD_NEW_FEED: {
+      const { newFeeds } = state;
+      return {
+        ...state,
+        newFeeds: newFeeds.includes(payload)
+          ? newFeeds
+          : [...newFeeds, payload],
+      };
+    }
+    case CLEAR_NEW_FEEDS: {
+      return {
+        ...state,
+        newFeeds: [],
+      };
+    }
     default: {
       return state;
     }

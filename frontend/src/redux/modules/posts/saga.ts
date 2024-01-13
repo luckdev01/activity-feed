@@ -9,7 +9,7 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 import { IAction } from '@/redux/store/types';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { Action, PayloadAction } from '@reduxjs/toolkit';
 import { PostAPI } from '../../../services/post.service';
 import {
   FETCH_POSTS,
@@ -24,31 +24,39 @@ import {
   DELETE_POST,
   DELETE_POST_FAILURE,
   DELETE_POST_SUCCESS,
+  CLEAR_NEW_FEEDS,
 } from './actions';
 import { IFetchPostParams } from './types';
-import { selectPostsCount } from './selectors';
+import { selectNewFeeds, selectPostsCount } from './selectors';
 
 // Worker saga will be fired on FETCH_POSTS actions
 function* fetchPosts(
   action: PayloadAction<IFetchPostParams>,
 ): Generator<
-  | PutEffect<IAction>
+  | PutEffect<IAction | Action>
   | CallEffect<any>
   | SimpleEffect<'SELECT', SelectEffectDescriptor>,
   void,
   any
 > {
   try {
-    const { more, limit, query } = action.payload;
-    const count = yield select(selectPostsCount);
-    const resp = yield call(
-      PostAPI.getAll,
-      more ? { offset: count, limit, query } : { offset: 0, limit, query },
-    );
+    const { offset, more, limit, query } = action.payload;
+    const postsCount = yield select(selectPostsCount);
+    const newFeeds = yield select(selectNewFeeds);
+    const realOffset =
+      offset !== undefined ? offset : more ? newFeeds.length + postsCount : 0;
+    const resp = yield call(PostAPI.getAll, {
+      offset: realOffset,
+      limit,
+      query,
+    });
     yield put({
       type: FETCH_POSTS_SUCCESS,
       payload: { data: resp, more },
     });
+    if (!more) {
+      yield put({ type: CLEAR_NEW_FEEDS });
+    }
   } catch (error: any) {
     yield put({
       type: FETCH_POSTS_FAILURE,

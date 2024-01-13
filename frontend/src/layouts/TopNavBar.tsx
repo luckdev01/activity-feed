@@ -15,12 +15,17 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Avatar from '@mui/material/Avatar';
 import { userActionCreators } from '../redux/modules/user/actions';
-import { selectIsAuthenticated } from '../redux/modules/user/selectors';
+import {
+  selectIsAuthenticated,
+  selectUser,
+} from '../redux/modules/user/selectors';
 
 export default function TopNavBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
@@ -65,7 +70,17 @@ export default function TopNavBar() {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle />
+            {user ? (
+              <Avatar sx={{ width: 24, height: 24 }} aria-label="profile">
+                <img
+                  style={{ width: 24 }}
+                  src={user.profileImage}
+                  alt="profile-logo"
+                />
+              </Avatar>
+            ) : (
+              <AccountCircle />
+            )}
           </IconButton>
           <Menu
             id="menu-appbar"

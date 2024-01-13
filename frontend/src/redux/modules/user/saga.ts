@@ -44,7 +44,7 @@ function* loginUser(
 
 function logoutUser(_action: PayloadAction<ILoginData>) {
   try {
-    socketModule.getSocket().disconnect();
+    socketModule.getSocket()?.disconnect();
   } catch (error: any) {
     console.log(error);
   }
