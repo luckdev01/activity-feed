@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Op } from 'sequelize';
+import * as socketModule from '../modules/socket.module';
 const { User, Post } = require('../models');
 
 async function get(req: Request, res: Response, next: NextFunction) {
@@ -39,7 +40,13 @@ async function get(req: Request, res: Response, next: NextFunction) {
 
 async function create(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await Post.create({ ...req.body, userId: (req.user as any).id }));
+    const userId = (req.user as any).id;
+    const resp = await Post.create({
+      ...req.body,
+      userId,
+    });
+    socketModule.emitEvent('postEvent', resp);
+    res.json(resp);
   } catch (err: any) {
     console.error('Error while creating post', err.message);
     next(err);
