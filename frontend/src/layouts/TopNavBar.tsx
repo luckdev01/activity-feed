@@ -71,13 +71,18 @@ export default function TopNavBar() {
             color="inherit"
           >
             {user ? (
-              <Avatar sx={{ width: 24, height: 24 }} aria-label="profile">
-                <img
-                  style={{ width: 24 }}
-                  src={user.profileImage}
-                  alt="profile-logo"
-                />
-              </Avatar>
+              <Box display="flex">
+                <Avatar sx={{ width: 24, height: 24 }} aria-label="profile">
+                  <img
+                    style={{ width: 24 }}
+                    src={user.profileImage}
+                    alt="profile-logo"
+                  />
+                </Avatar>
+                <Typography variant="subtitle1" sx={{ pl: 1 }}>
+                  {user.firstName} {user.lastName}
+                </Typography>
+              </Box>
             ) : (
               <AccountCircle />
             )}

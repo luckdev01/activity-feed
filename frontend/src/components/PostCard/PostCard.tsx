@@ -40,7 +40,7 @@ export default function PostCard({ data }: Props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={data.user.username}
+        title={`${data.user.firstName} ${data.user.lastName}`}
         subheader={format(new Date(data.timeStamp), 'hh:mm a, MMM dd')}
       />
       <CardContent>
