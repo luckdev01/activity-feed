@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { userActionCreators } from '../redux/modules/user/actions';
+import store from '../redux/store';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -15,6 +17,7 @@ axiosInstance.interceptors.response.use(
   error => {
     if (error.response?.status === 401) {
       // logout
+      store.dispatch(userActionCreators.logoutUser());
     }
 
     return Promise.reject(error);

@@ -9,6 +9,7 @@ import {
 import { IAction } from '@/redux/store/types';
 import { UserAPI } from '../../../services/user.service';
 import axiosInstance from '../../../services/axios-config';
+import * as socketModule from '../../../services/socket';
 import {
   FETCH_USER,
   FETCH_USER_FAILURE,
@@ -16,6 +17,7 @@ import {
   LOGIN_USER,
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
+  LOGOUT_USER,
 } from './actions';
 import { ILoginData } from './types';
 
@@ -26,6 +28,7 @@ function* loginUser(
   try {
     const resp = yield call(UserAPI.login, action.payload);
     axiosInstance.defaults.headers.Authorization = `Bearer ${resp.token}`;
+    socketModule.initialize(resp.token);
     yield put({
       type: LOGIN_USER_SUCCESS,
       payload: resp,
@@ -39,8 +42,16 @@ function* loginUser(
   }
 }
 
+function logoutUser(_action: PayloadAction<ILoginData>) {
+  try {
+    socketModule.getSocket().disconnect();
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
 function* fetchUser(
-  action: Action,
+  _action: Action,
 ): Generator<PutEffect<Action> | CallEffect<any>, void, any> {
   try {
     const resp = yield call(UserAPI.getProfile);
@@ -58,5 +69,6 @@ function* fetchUser(
 
 export function* userSaga() {
   yield takeEvery(LOGIN_USER, loginUser);
+  yield takeEvery(LOGOUT_USER, logoutUser);
   yield takeEvery(FETCH_USER, fetchUser);
 }
