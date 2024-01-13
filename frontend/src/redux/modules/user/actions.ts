@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ILoginData } from './types';
+import { ILoginData, ITokenPayload } from './types';
 
 export const LOGIN_USER = 'user/login';
 export const LOGIN_USER_SUCCESS = 'user/loginSuccess';
@@ -11,6 +11,7 @@ export const FETCH_USER_FAILURE = 'user/fetchFailure';
 
 export const userActionCreators = {
   loginUser: createAction<ILoginData>(LOGIN_USER),
+  loginSuccess: createAction<ITokenPayload>(LOGIN_USER_SUCCESS),
   logoutUser: createAction(LOGOUT_USER),
   fetchUser: createAction(FETCH_USER),
 };

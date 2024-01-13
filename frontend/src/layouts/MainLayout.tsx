@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MainRoutes from '../routes';
 import TopNavBar from './TopNavBar';
-import useSocketEvent from '../hooks/useSocketEvent';
 
 const MainContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.grey[200],
@@ -18,20 +17,16 @@ const InnerContainer = styled(Box)(({ theme }) => ({
   margin: 'auto',
 }));
 
-const MainLayout = () => {
-  useSocketEvent();
-
-  return (
-    <Router>
-      <TopNavBar />
-      <MainContainer component="main">
-        <InnerContainer>
-          <Toolbar />
-          <MainRoutes />
-        </InnerContainer>
-      </MainContainer>
-    </Router>
-  );
-};
+const MainLayout = () => (
+  <Router>
+    <TopNavBar />
+    <MainContainer component="main">
+      <InnerContainer>
+        <Toolbar />
+        <MainRoutes />
+      </InnerContainer>
+    </MainContainer>
+  </Router>
+);
 
 export default MainLayout;

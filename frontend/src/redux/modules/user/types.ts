@@ -24,3 +24,7 @@ export type ILoginData = {
   username: string;
   password: string;
 };
+
+export type ITokenPayload = {
+  token: string;
+};

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IPost } from '@/redux/modules/posts/types';
 import { selectIsAuthenticated } from '../redux/modules/user/selectors';
 import { postActionCreators } from '../redux/modules/posts/actions';
@@ -23,9 +23,11 @@ export default function useSocketEvent() {
 
   useEffect(() => {
     // Register post event after login
+    const socket = socketModule.getSocket();
     if (isAuthenticated) {
-      const socket = socketModule.getSocket();
       socket.on('postEvent', onPostEvent);
+    } else {
+      socket?.off('postEvent', onPostEvent);
     }
   }, [isAuthenticated]);
 

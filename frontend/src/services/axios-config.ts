@@ -73,4 +73,8 @@ export const axd = async (url: string) => {
   return res.data;
 };
 
+export const setAxiosToken = (token: string) => {
+  axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
+};
+
 export default axiosInstance;

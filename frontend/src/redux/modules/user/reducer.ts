@@ -42,7 +42,7 @@ export function userReducer(state = DEFAULT, action: IAction): UserState {
         login: {
           isLoading: false,
         },
-        isAuthenticated: payload.success,
+        isAuthenticated: true,
       };
     }
     case LOGIN_USER_FAILURE: {

@@ -33,8 +33,11 @@ export default function TopNavBar() {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
+    } else {
+      navigate('/activity-feeds');
     }
-  }, [isAuthenticated, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
