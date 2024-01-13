@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -8,12 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Avatar from '@mui/material/Avatar';
 import { userActionCreators } from '../redux/modules/user/actions';
@@ -21,11 +21,13 @@ import {
   selectIsAuthenticated,
   selectUser,
 } from '../redux/modules/user/selectors';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function TopNavBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const user = useSelector(selectUser);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
@@ -105,17 +107,15 @@ export default function TopNavBar() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={toggleTheme}>
               <ListItemIcon>
-                <PersonIcon fontSize="small" />
+                {darkMode ? (
+                  <DarkModeOutlinedIcon />
+                ) : (
+                  <LightModeOutlinedIcon />
+                )}
               </ListItemIcon>
-              <ListItemText>Profile</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Settings</ListItemText>
+              <ListItemText>Toggle Theme</ListItemText>
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>

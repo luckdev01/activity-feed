@@ -6,7 +6,6 @@ import MainRoutes from '../routes';
 import TopNavBar from './TopNavBar';
 
 const MainContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[200],
   minHeight: '100vh',
 }));
 
