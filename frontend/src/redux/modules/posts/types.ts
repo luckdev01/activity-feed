@@ -32,4 +32,5 @@ export type PostState = EntityState<IPost, number> & {
   isSaving: boolean;
   error: any;
   newFeeds: number[];
+  hasMore: boolean;
 };

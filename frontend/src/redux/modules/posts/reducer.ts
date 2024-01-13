@@ -29,6 +29,7 @@ const DEFAULT: PostState = postsAdapter.getInitialState({
   isSaving: false,
   error: null,
   newFeeds: [],
+  hasMore: false,
 });
 
 export function postReducer(state = DEFAULT, action: IAction): PostState {
@@ -48,6 +49,7 @@ export function postReducer(state = DEFAULT, action: IAction): PostState {
           ? postsAdapter.setMany(state, payload.data)
           : postsAdapter.setAll(state, payload.data)),
         isLoading: false,
+        hasMore: payload.offset !== 0 && payload.data.length > 0,
       };
     }
     case FETCH_POSTS_FAILURE: {

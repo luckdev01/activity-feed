@@ -52,7 +52,7 @@ function* fetchPosts(
     });
     yield put({
       type: FETCH_POSTS_SUCCESS,
-      payload: { data: resp, more },
+      payload: { data: resp, offset, more },
     });
     if (!more) {
       yield put({ type: CLEAR_NEW_FEEDS });
