@@ -27,7 +27,6 @@ export function initPassport(app: Express) {
         });
         if (user) {
           delete user.dataValues.hash;
-          delete user.dataValues.salt;
           done(null, user.dataValues);
         } else {
           done(null, false, { message: 'Unauthorized' });

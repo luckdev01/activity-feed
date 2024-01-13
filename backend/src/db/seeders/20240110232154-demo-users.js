@@ -1,6 +1,6 @@
 'use strict';
 
-const { generateSaltAndHash } = require('../../utils/helper');
+const { generateHashWithSalt } = require('../../utils/helper');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -9,11 +9,11 @@ module.exports = {
      * Add seed commands here.
      *
      */
-    const saltHashPairs = [];
+    const hashes = [];
 
     for (let i = 0; i < 8; i++) {
-      const pair = await generateSaltAndHash('TestPassword123!');
-      saltHashPairs.push(pair);
+      const hash = await generateHashWithSalt('TestPassword123!');
+      hashes.push(hash);
     }
 
     await queryInterface.bulkInsert(
@@ -25,8 +25,7 @@ module.exports = {
           lastName: 'Doe',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/male/0.jpg',
-          hash: saltHashPairs[0].hash,
-          salt: saltHashPairs[0].salt,
+          hash: hashes[0],
         },
         {
           username: 'JaneSmith',
@@ -34,8 +33,7 @@ module.exports = {
           lastName: 'Smith',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/female/1.jpg',
-          hash: saltHashPairs[1].hash,
-          salt: saltHashPairs[1].salt,
+          hash: hashes[1],
         },
         {
           username: 'MikeBrown',
@@ -43,8 +41,7 @@ module.exports = {
           lastName: 'Brown',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/male/2.jpg',
-          hash: saltHashPairs[2].hash,
-          salt: saltHashPairs[2].salt,
+          hash: hashes[2],
         },
         {
           username: 'LindaGale',
@@ -52,8 +49,7 @@ module.exports = {
           lastName: 'Gale',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/female/3.jpg',
-          hash: saltHashPairs[3].hash,
-          salt: saltHashPairs[3].salt,
+          hash: hashes[3],
         },
         {
           username: 'RobertJones',
@@ -61,8 +57,7 @@ module.exports = {
           lastName: 'Jones',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/male/4.jpg',
-          hash: saltHashPairs[4].hash,
-          salt: saltHashPairs[4].salt,
+          hash: hashes[4],
         },
         {
           username: 'RebeccaWhite',
@@ -70,8 +65,7 @@ module.exports = {
           lastName: 'White',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/female/5.jpg',
-          hash: saltHashPairs[5].hash,
-          salt: saltHashPairs[5].salt,
+          hash: hashes[5],
         },
         {
           username: 'DavidLee',
@@ -79,8 +73,7 @@ module.exports = {
           lastName: 'Lee',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/male/6.jpg',
-          hash: saltHashPairs[6].hash,
-          salt: saltHashPairs[6].salt,
+          hash: hashes[6],
         },
         {
           username: 'MeganTaylor',
@@ -88,8 +81,7 @@ module.exports = {
           lastName: 'Taylor',
           profileImage:
             'https://xsgames.co/randomusers/assets/avatars/female/7.jpg',
-          hash: saltHashPairs[7].hash,
-          salt: saltHashPairs[7].salt,
+          hash: hashes[7],
         },
       ],
       {},

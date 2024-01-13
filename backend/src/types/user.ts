@@ -6,5 +6,4 @@ export type IUser = {
   email?: string;
   profileImage: string;
   hash: string;
-  salt: string;
 };
