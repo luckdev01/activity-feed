@@ -31,7 +31,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
       limit: limitNumber,
     });
 
-    res.json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     console.error('Error while getting posts', err.message);
     next(err);
