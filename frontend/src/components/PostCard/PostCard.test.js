@@ -25,7 +25,7 @@ test('renders post information correctly', async () => {
   );
   const contentElement = screen.getByText(testData.postContent);
   const timeElement = screen.getByText(
-    format(new Date(testData.timeStamp), 'hh:mm a, MMM dd'),
+    format(new Date(testData.timeStamp), 'hh:mm a, MMM dd, yyyy'),
   );
   const imageElement = screen.getByRole('img', { name: 'profile-logo' });
 

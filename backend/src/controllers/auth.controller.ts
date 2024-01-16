@@ -6,6 +6,9 @@ const { User } = require('../models');
 
 const expirationTimeInMs = process.env.JWT_EXPIRATION_TIME || '3600000';
 
+/**
+ * Login API
+ */
 async function login(req: Request, res: Response, next: NextFunction) {
   const { username, password } = req.body;
 

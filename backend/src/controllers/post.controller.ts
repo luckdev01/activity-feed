@@ -14,13 +14,13 @@ async function get(req: Request, res: Response, next: NextFunction) {
     const data = await Post.findAll({
       include: [
         {
-          model: User,
+          model: User, // Join User table
           as: 'user',
           attributes: ['username', 'firstName', 'lastName', 'profileImage'],
           where: query
             ? {
                 username: {
-                  [Op.iLike]: `%${query}%`,
+                  [Op.iLike]: `%${query}%`, // Query posts by username with case-insensitive
                 },
               }
             : {},
@@ -45,6 +45,9 @@ async function create(req: Request, res: Response, next: NextFunction) {
       ...req.body,
       userId,
     });
+    /**
+     * Send a post event to clients using web socket
+     */
     socketModule.emitEvent('postEvent', resp);
     res.json(resp);
   } catch (err: any) {

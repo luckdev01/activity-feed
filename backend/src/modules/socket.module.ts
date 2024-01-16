@@ -8,6 +8,9 @@ type IAuthTokenPayload = any;
 
 let io: SocketServer;
 
+/**
+ * Initialize socket server
+ */
 export function initialize(httpServer: HttpServer) {
   io = new SocketServer(httpServer, {
     cors: { origin: process.env.ORIGIN },
@@ -46,6 +49,9 @@ export function getSocket() {
   return io;
 }
 
+/**
+ * Emit socket event
+ */
 export function emitEvent(event: ISocketEvent, data: unknown) {
   return io.emit(event, data);
 }

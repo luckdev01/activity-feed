@@ -12,6 +12,7 @@ module.exports = {
     const hashes = [];
 
     for (let i = 0; i < 8; i++) {
+      // All passwords are the same, but their hashes are different due to the salts.
       const hash = await generateHashWithSalt('TestPassword123!');
       hashes.push(hash);
     }

@@ -21,7 +21,7 @@ import { IPost, PostState } from './types';
 export const postsAdapter = createEntityAdapter<IPost, number>({
   selectId: post => post.id,
   sortComparer: (a, b) =>
-    Date.parse(a.timeStamp) > Date.parse(b.timeStamp) ? -1 : 1,
+    Date.parse(a.timeStamp) > Date.parse(b.timeStamp) ? -1 : 1, // sort by timeStamp on store
 });
 
 const DEFAULT: PostState = postsAdapter.getInitialState({
@@ -46,8 +46,8 @@ export function postReducer(state = DEFAULT, action: IAction): PostState {
     case FETCH_POSTS_SUCCESS: {
       return {
         ...(payload.more
-          ? postsAdapter.setMany(state, payload.data)
-          : postsAdapter.setAll(state, payload.data)),
+          ? postsAdapter.setMany(state, payload.data) // add more posts with payload
+          : postsAdapter.setAll(state, payload.data)), // set new posts with payload
         isLoading: false,
         ...(payload.offset !== undefined // if fetching new feeds, don't change hasMore
           ? {}
@@ -87,6 +87,9 @@ export function postReducer(state = DEFAULT, action: IAction): PostState {
         error: payload.error,
       };
     }
+    /**
+     * Add new feed from web socket
+     */
     case ADD_NEW_FEED: {
       const { newFeeds } = state;
       return {

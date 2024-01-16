@@ -44,7 +44,11 @@ function* fetchPosts(
     const postsCount = yield select(selectPostsCount);
     const newFeeds = yield select(selectNewFeeds);
     const realOffset =
-      offset !== undefined ? offset : more ? newFeeds.length + postsCount : 0;
+      offset !== undefined // If loading new feeds
+        ? offset
+        : more
+        ? newFeeds.length + postsCount // if loading more
+        : 0; // if initial loading
     const resp = yield call(PostAPI.getAll, {
       offset: realOffset,
       limit,

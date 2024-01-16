@@ -13,10 +13,10 @@ import * as Yup from 'yup';
 
 type Props = {
   open: boolean;
-  loading: boolean;
+  loading: boolean; // If the post is saving
   onClose: () => void;
-  handlePost: (data: IPostDTO) => void;
-  onPost: () => void;
+  handlePost: (data: IPostDTO) => void; // The function to submit a post.
+  onPost: () => void; // Callback function called after a post is created and closed.
 };
 
 export default function CreatePostDialog({

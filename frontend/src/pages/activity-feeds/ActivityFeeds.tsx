@@ -38,12 +38,18 @@ export default function ActivityFeeds() {
     dispatch(postActionCreators.fetchPosts({ limit: rowsPerTime }));
   }, []);
 
+  /**
+   * The function to load more posts
+   */
   const handleLoadMore = useCallback(() => {
     dispatch(
       postActionCreators.fetchPosts({ limit: rowsPerTime, query, more: true }),
     );
   }, [dispatch, query]);
 
+  /**
+   * The function to search posts by username
+   */
   const handleSearch = useCallback(
     (keyword: string) => {
       setQuery(keyword);
@@ -54,6 +60,9 @@ export default function ActivityFeeds() {
     [dispatch],
   );
 
+  /**
+   * The function to submit a post
+   */
   const handlePost = useCallback(
     (data: IPostDTO) => {
       dispatch(postActionCreators.createPost({ data }));
@@ -61,6 +70,9 @@ export default function ActivityFeeds() {
     [dispatch],
   );
 
+  /**
+   * The function to reload posts after the user created a post.
+   */
   const handleAfterPost = useCallback(() => {
     setQuery('');
     dispatch(postActionCreators.fetchPosts({ limit: rowsPerTime }));

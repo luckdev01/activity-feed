@@ -43,6 +43,9 @@ function* loginUser(
 function* loginSuccess(action: PayloadAction<ITokenPayload>) {
   const token = action.payload.token;
   setAxiosToken(token);
+  /**
+   * Initialize socket connection using token
+   */
   socketModule.initialize(token);
   yield put({ type: FETCH_USER });
 }

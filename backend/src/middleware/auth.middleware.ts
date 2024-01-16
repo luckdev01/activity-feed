@@ -6,6 +6,9 @@ const { User } = require('../models');
 
 export const jwtSecretKey = generateSecretKey(32);
 
+/**
+ * Passport middleware configuration using JWT strategy
+ */
 export function initPassport(app: Express) {
   app.use(passport.initialize());
 
@@ -38,4 +41,7 @@ export function initPassport(app: Express) {
   );
 }
 
+/**
+ * Middleware function for checking user authentication using Passport with JWT strategy
+ */
 export const isAuthenticated = passport.authenticate('jwt', { session: false });
