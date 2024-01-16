@@ -73,6 +73,20 @@ This application will allow users to view, create, and interact with posts.
   cd ..
   ```
 
+- Test application
+
+  ```bash
+  # backend
+  cd backend
+  npm run test
+  cd ..
+
+  # frontend
+  cd frontend
+  npm run test
+  cd ..
+  ```
+
 ## Technologies
 
 - React 18
